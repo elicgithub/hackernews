@@ -40,7 +40,7 @@ class App extends Component {
     super(props);
     this.state = {
       list,
-      searchTerm: 'e',
+      searchTerm: '',
       };
       this.onDismiss = this.onDismiss.bind(this);
       this.onSearchChange = this.onSearchChange.bind(this);
@@ -62,6 +62,7 @@ class App extends Component {
         <Search
           value={searchTerm}
           onChange={this.onSearchChange}
+          children='Search'
         />
         <Table
           list={list}
@@ -75,10 +76,10 @@ class App extends Component {
 
 class Search extends Component {
   render() {
-    const { value, onChange } = this.props;
+    const { value, onChange, children } = this.props;
     return (
     <form>
-      <input
+      {children} <input
         type="text"
         value={value}
         onChange={onChange}
