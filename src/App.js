@@ -75,11 +75,13 @@ class App extends Component {
           children='Search'
         />
         </div>
-        <Table
+        {result
+        ? <Table
           list={result.hits}
           pattern={searchTerm}
           onDismiss={this.onDismiss}
-          />
+          /> : 
+          null}
         </div>
     );
   }
