@@ -122,10 +122,10 @@ class Table extends Component {
           <span style={largeColumn}>
               <a href={item.url}>{item.title}</a>
             </span>
-            <span style={{ width: '30%' }}>{item.author}</span>
-            <span style={{ width: '10%' }}>{item.num_comments}</span>
-            <span style={{ width: '10%' }}>{item.points}</span>
-            <span style={{ width: '10%' }}>
+            <span style={midColumn}>{item.author}</span>
+            <span style={smallColumn}>{item.num_comments}</span>
+            <span style={smallColumn}>{item.points}</span>
+            <span >
             <Button onClick={() => onDismiss(item.objectID)}>
               Dismiss
             </Button>
@@ -145,7 +145,7 @@ class Button extends Component {
         onClick={onClick}
         className={className}
         type="button"
-        className="button-inline"
+        //className="button-inline"
         >
         {children}
       </button>
