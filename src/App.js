@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import './App.css';
+//import PropType from 'prop-types';
 
 const DEFAULT_QUERY = 'redux';
 const PATH_BASE = 'https://hn.algolia.com/api/v1';
@@ -129,55 +130,40 @@ class App extends Component {
   }
 }
 
+const Table = ({ list, onDismiss }) =>
+  <div className="table">
+      {list.map(item =>
+    <div key={item.objectID} className="table-row" >
+      <span style={largeColumn}>
+          <a href={item.url}>{item.title}</a>
+        </span>
+        <span style={midColumn}>{item.author}</span>
+        <span style={smallColumn}>{item.num_comments}</span>
+        <span style={smallColumn}>{item.points}</span>
+        {/* <span style={smallColumn}>{item.created_at}</span> */}
+        <span >
+        <Button onClick={() => onDismiss(item.objectID)}>
+          Dismiss
+        </Button>
+      </span>
+    </div>
+    )}
+  </div>
+   
 
-class Search extends Component {
-  render() {
-    const { value, onChange, onSubmit, children } = this.props;
-    return (
-    <form onSubmit={onSubmit}>
-      {/*children*/} <input
-        type="text"
-        value={value}
-        onChange={onChange}
-      />
-      <button type="submit">
-        {children}
-      </button>
-    </form>
-    );
-  }
-}
+const Search = ({ value, onChange, onSubmit, children }) =>
+  <form onSubmit={onSubmit}>
+    <input
+      type="text"
+      value={value}
+      onChange={onChange}
+    />
+    <button type="submit">
+      {children}
+    </button>
+  </form>
 
-class Table extends Component {
-  render() {
-    const { list, onDismiss } = this.props;
-    return (
-      <div className="table">
-          {list.map(item =>
-        <div key={item.objectID} className="table-row" >
-          <span style={largeColumn}>
-              <a href={item.url}>{item.title}</a>
-            </span>
-            <span style={midColumn}>{item.author}</span>
-            <span style={smallColumn}>{item.num_comments}</span>
-            <span style={smallColumn}>{item.points}</span>
-            {/* <span style={smallColumn}>{item.created_at}</span> */}
-            <span >
-            <Button onClick={() => onDismiss(item.objectID)}>
-              Dismiss
-            </Button>
-          </span>
-        </div>
-        )}
-      </div>
-    );
-  }
-}
-
-class Button extends Component {
-  render() {
-    const {onClick, className = '', children,} = this.props;
-    return (
+const Button = ({ onClick, className = '', children }) =>
       <button
         onClick={onClick}
         className={className}
@@ -186,7 +172,69 @@ class Button extends Component {
         >
         {children}
       </button>
-    );
-  }
-}
+
+// class Search extends Component {
+//   render() {
+//     const { value, onChange, onSubmit, children } = this.props;
+//     return (
+//     <form onSubmit={onSubmit}>
+//       {/*children*/} <input
+//         type="text"
+//         value={value}
+//         onChange={onChange}
+//       />
+//       <button type="submit">
+//         {children}
+//       </button>
+//     </form>
+//     );
+//   }
+// }
+
+// class Table extends Component {
+//   render() {
+//     const { list, onDismiss } = this.props;
+//     return (
+//       <div className="table">
+//           {list.map(item =>
+//         <div key={item.objectID} className="table-row" >
+//           <span style={largeColumn}>
+//               <a href={item.url}>{item.title}</a>
+//             </span>
+//             <span style={midColumn}>{item.author}</span>
+//             <span style={smallColumn}>{item.num_comments}</span>
+//             <span style={smallColumn}>{item.points}</span>
+//             {/* <span style={smallColumn}>{item.created_at}</span> */}
+//             <span >
+//             <Button onClick={() => onDismiss(item.objectID)}>
+//               Dismiss
+//             </Button>
+//           </span>
+//         </div>
+//         )}
+//       </div>
+//     );
+//   }
+// }
+
+// class Button extends Component {
+//   render() {
+//     const {onClick, className = '', children,} = this.props;
+//     return (
+//       <button
+//         onClick={onClick}
+//         className={className}
+//         type="button"
+//         //className="button-inline"
+//         >
+//         {children}
+//       </button>
+//     );
+//   }
+// }
 export default App;
+export {
+  Button,
+  Search,
+  Table,
+  };
