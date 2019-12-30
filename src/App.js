@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import './App.css';
 import PropType from 'prop-types';
 import fontAwesome from 'font-awesome/css/font-awesome.min.css';
 import { sortBy } from 'lodash';
 import classNames from 'classnames';
+import './App.css';
 
 const DEFAULT_QUERY = 'redux';
 const PATH_BASE = 'https://hn.algolia.com/api/v1';
@@ -137,10 +137,10 @@ class App extends Component {
           {results ?
           <Table
             list={list}
-            onDismiss={this.onDismiss}
             sortKey={sortKey}
             isSortReverse={isSortReverse}
             onSort={this.onSort}
+            onDismiss={this.onDismiss}
           /> : 
             null}
           <div className="interactions">
@@ -156,74 +156,73 @@ class App extends Component {
   }
 }
 
-const Table = ({ list, sortKey, isSortReverse, onSort, onDismiss }) =>
-  {
-    const sortedList = SORTS[sortKey](list);
+const Table = ({ list, sortKey, isSortReverse, onSort, onDismiss }) => {
+  const sortedList = SORTS[sortKey](list);
     const reverseSortedList = isSortReverse
-      ? sortedList.reverse()
-      : sortedList;
-    return (
+    ? sortedList.reverse()
+    : sortedList;
+    return(
     <div className="table">
       <div className="table-header">
-        <span style={largeColumn}>
-          <Sort
-            sortKey={'TITLE'}
-            onSort={onSort}
-            activeSortKey = {sortKey}
-          >
-          Title
-          </Sort>
-        </span>
-        <span style={midColumn}>
-          <Sort
-            sortKey={'AUTHOR'}
-            onSort={onSort}
-            activeSortKey = {sortKey}
-          >
-          Author
-          </Sort>
-        </span>
-        <span style={smallColumn}>
-          <Sort
-            sortKey={'COMMENTS'}
-            onSort={onSort}
-            activeSortKey = {sortKey}
-          >
-          Comments
-          </Sort>
-        </span>
-        <span style={smallColumn}>
-          <Sort
-            sortKey={'POINTS'}
-            onSort={onSort}
-            activeSortKey = {sortKey}
-          >
-          Points
-          </Sort>
-        </span>
-        <span style={smallColumn}>
-          Archive
-        </span>
-      </div>
-      { reverseSortedList.map(item =>
+      <span style={largeColumn}>
+        <Sort
+          sortKey={'TITLE'}
+          onSort={onSort}
+          activeSortKey={sortKey}
+        >
+        Title
+        </Sort>
+      </span>
+      <span style={midColumn}>
+        <Sort
+          sortKey={'AUTHOR'}
+          onSort={onSort}
+          activeSortKey={sortKey}
+        >
+        Author
+        </Sort>
+      </span>
+      <span style={smallColumn}>
+        <Sort
+          sortKey={'COMMENTS'}
+          onSort={onSort}
+          activeSortKey={sortKey}
+        >
+        Comments
+        </Sort>
+      </span>
+      <span style={smallColumn}>
+        <Sort
+          sortKey={'POINTS'}
+          onSort={onSort}
+          activeSortKey={sortKey}
+        >
+        Points
+        </Sort>
+      </span>
+      <span style={smallColumn}>
+        Archive
+      </span>
+  </div>
+      {reverseSortedList.map(item =>
       <div key={item.objectID} className="table-row" >
-        <span style={largeColumn}>
-            <a href={item.url}>{item.title}</a>
-          </span>
-          <span style={midColumn}>{item.author}</span>
-          <span style={smallColumn}>{item.num_comments}</span>
-          <span style={smallColumn}>{item.points}</span>
-          <span style={smallColumn}>{item.created_at}</span>
-          <span >
-          <Button onClick={() => onDismiss(item.objectID)}>
-            Dismiss
-          </Button>
+      <span style={largeColumn}>
+          <a href={item.url}>{item.title}</a>
         </span>
-      </div>
-      )}
+        <span style={midColumn}>{item.author}</span>
+        <span style={smallColumn}>{item.num_comments}</span>
+        <span style={smallColumn}>{item.points}</span>
+        <span style={smallColumn}>{item.created_at}</span>
+        <span >
+        <Button onClick={() => onDismiss(item.objectID)}>
+          Dismiss
+        </Button>
+      </span>
     </div>
+    )}
+  </div>
     );
-}
+  }
 
 const Search = ({ value, onChange, onSubmit, children }) =>
   <form onSubmit={onSubmit}>
@@ -255,24 +254,30 @@ const withLoading = (Component) => ({ isLoading, ...rest }) =>
 
 const ButtonWithLoading = withLoading(Button);
 
-const Sort = ({ sortKey, activeSortKey, onSort, children }) => {
-  const sortClass = classNames(
-    'button-inline',
+const Sort = ({
+  sortKey,
+  activeSortKey,
+  onSort,
+  children
+    }) => {
+      const sortClass = classNames(
+      'button-inline',
     { 'button-active': sortKey === activeSortKey }
   );
-  return (
+    return (
       <Button
         onClick={() => onSort(sortKey)}
         className={sortClass}
       >
         {children}
       </Button>
-    )
-}
+    );
+  }
+
 
 export default App;
 export {
   Button,
   Search,
   Table,
-  }
+  };
