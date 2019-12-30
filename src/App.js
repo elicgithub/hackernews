@@ -271,7 +271,7 @@ const Sort = ({
       );
       const faIconClass = classNames(
           'fa fa-arrow-circle-o-down',
-          {'fa fa-arrow-circle-o-up': isSortReverse === false }
+          {'fa fa-arrow-circle-o-up': isSortReverse === false && activeSortKey === sortKey}
       );
     return (
       <Button
