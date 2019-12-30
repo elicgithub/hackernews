@@ -148,7 +148,7 @@ class App extends Component {
             isLoading={isLoading}
             onClick={() => this.fetchSearchTopStories(searchKey, page + 1)}
             >
-              <div><i className="fa fa-spinner fa-spin">More</i></div>
+              <div><i className="fa">More</i></div>
             </ButtonWithLoading>
           </div>
         </div>
@@ -168,6 +168,7 @@ const Table = ({ list, sortKey, isSortReverse, onSort, onDismiss }) => {
         <Sort
           sortKey={'TITLE'}
           onSort={onSort}
+          isSortReverse={isSortReverse}
           activeSortKey={sortKey}
         >
         Title
@@ -177,6 +178,7 @@ const Table = ({ list, sortKey, isSortReverse, onSort, onDismiss }) => {
         <Sort
           sortKey={'AUTHOR'}
           onSort={onSort}
+          isSortReverse={isSortReverse}
           activeSortKey={sortKey}
         >
         Author
@@ -186,6 +188,7 @@ const Table = ({ list, sortKey, isSortReverse, onSort, onDismiss }) => {
         <Sort
           sortKey={'COMMENTS'}
           onSort={onSort}
+          isSortReverse={isSortReverse}
           activeSortKey={sortKey}
         >
         Comments
@@ -195,6 +198,7 @@ const Table = ({ list, sortKey, isSortReverse, onSort, onDismiss }) => {
         <Sort
           sortKey={'POINTS'}
           onSort={onSort}
+          isSortReverse={isSortReverse}
           activeSortKey={sortKey}
         >
         Points
@@ -257,19 +261,26 @@ const ButtonWithLoading = withLoading(Button);
 const Sort = ({
   sortKey,
   activeSortKey,
+  isSortReverse,
   onSort,
   children
     }) => {
       const sortClass = classNames(
-      'button-inline',
-    { 'button-active': sortKey === activeSortKey }
-  );
+        'button-inline',
+      { 'button-active': sortKey === activeSortKey }
+      );
+      const faIconClass = classNames(
+          'fa fa-arrow-circle-o-down',
+          {'fa fa-arrow-circle-o-up': isSortReverse === false }
+      );
     return (
       <Button
         onClick={() => onSort(sortKey)}
         className={sortClass}
       >
         {children}
+        <span> </span>
+        <span><i className={faIconClass}></i></span>
       </Button>
     );
   }
